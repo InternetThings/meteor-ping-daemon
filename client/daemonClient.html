@@ -1,0 +1,20 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Daemon</title>
+</head>
+<body>
+    {{>connection}}
+</body>
+
+<Template name="connection">
+    {{#if isConnected}}
+        <p>{{connectionString}}</p>
+        <button class="stopButton">Stop</button>
+    {{else}}
+        <form class="connectionForm">
+            <input type="url" name="urlInput" placeholder="URL">
+            <input type="number" name="frequencyInput" placeholder="Frequency in ms">
+            <input type="submit" name="submitButton" value="Connect">
+        </form>
+    {{/if}}
+</Template>
