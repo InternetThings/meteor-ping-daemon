@@ -21,12 +21,12 @@ Template.connection.events({
         console.log(frequency + " is a number: " + !isNaN(frequency));
         if(event.target.urlInput.value !== "" && !isNaN(frequency)) {
             Session.set('currentUrl', event.target.urlInput.value);
-            Meteor.call('connectTo', event.target.urlInput.value, frequency);
+            connectTo(event.target.urlInput.value, frequency);
         }
     },
 
     'click .stopButton':function() {
         Session.set('currentUrl', undefined);
-        Meteor.call('stopConnection');
+        stopConnection();
     }
 });

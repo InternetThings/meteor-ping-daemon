@@ -4,8 +4,11 @@
 var remote = undefined;
 var interval = undefined;
 var sensors = [];
+var pingCount = 0;
 
 function pingServer() {
+    console.log('Ping count: ' + pingCount);
+    pingCount++;
     if(remote.status().status === 'connected') {
         for (var sensorIndex = 0; sensorIndex < sensors.length; sensorIndex++) {
             var date = Date.now();
@@ -39,30 +42,22 @@ function pingServer() {
     }
 }
 
-if(Meteor.isServer) {
-    Meteor.startup(function() {
-        //Do nothing
-    });
+function connectTo(url, frequency) {
+    check(url, String);
+    check(frequency, Number);
+    console.log('Function called');
+    remote = DDP.connect(url);
+    console.log('connected');
+    var ids = remote.call('getIds');
+    console.log('ids fetched');
+    for(var i = 0; i < ids.length; i++) {
+        sensors.push({_id:ids[i]._id, type:ids[i].type, data:undefined});
+    }
+    interval = setInterval(Meteor.bindEnvironment(function() {pingServer()}), frequency);
+    console.log('interval started');
 }
 
-Meteor.methods({
-    connectTo:function(url, frequency) {
-        check(url, String);
-        check(frequency, Number);
-        console.log('Function called');
-        remote = DDP.connect(url);
-        console.log('connected');
-        var ids = remote.call('getIds');
-        console.log('ids fetched');
-        for(var i = 0; i < ids.length; i++) {
-            sensors.push({_id:ids[i]._id, type:ids[i].type, data:undefined});
-        }
-        interval = setInterval(Meteor.bindEnvironment(function() {pingServer()}), frequency);
-        console.log('interval started');
-    },
-
-    stopConnection:function() {
-        clearInterval(interval);
-        remote.disconnect();
-    }
-});
+function stopConnection() {
+    clearInterval(interval);
+    remote.disconnect();
+}
