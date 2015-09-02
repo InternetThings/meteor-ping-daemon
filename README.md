@@ -1,29 +1,14 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* The Meteor Ping Daemon is a web tool for quick and easy testing of sensor gateways.  
+* Version 1.0
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* All you need to run the daemon is a web browser and meteor. To install meteor follow the instructions [here](https://www.meteor.com/install). With meteor installed set the project directory as your current directory and run the command "meteor". If you are testing a server running on the same computer you will have to run the daemon on a separate port (standard for meteor is 3000), to do this instead use the command "meteor run --port portnumber" and replace portnumber with your desired port. 
 
-### Contribution guidelines ###
+### Contact ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* For more info contact Niels Jakobsen at ncfjakobsen@me.com
